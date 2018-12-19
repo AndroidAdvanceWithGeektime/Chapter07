@@ -1,0 +1,43 @@
+
+apply plugin: 'maven-publish'
+
+
+
+def javadocJar = task("javadocJar", type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+def sourcesJar = task("sourcesJar", type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.java.srcDirs
+}
+
+publishing {
+    publications {
+        Component(MavenPublication) {
+            from components.java
+            groupId = group
+            artifactId = POM_ARTIFACT_ID
+            version = version
+
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+}
+
+
+task buildAndPublishToLocalMaven(type: Copy, dependsOn: ['build', 'publishToMavenLocal']) {
+    group = 'geektime'
+
+    // save artifacts files to artifacts folder
+    from configurations.archives.allArtifacts.files
+    into "${rootProject.buildDir}/outputs/artifacts/"
+    rename { String fileName ->
+        fileName.replace("release.aar", "${version}.aar")
+    }
+
+    doLast {
+        println "* published to maven local: ${project.group}:${project.name}:${project.version}"
+    }
+}

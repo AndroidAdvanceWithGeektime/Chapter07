@@ -1,0 +1,33 @@
+
+
+buildscript {
+    repositories {
+        mavenLocal()
+
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        // classpath
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath ("com.geektime.systrace:systrace-gradle-plugin:1.0") { changing = true }
+
+    }
+
+
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+
+        google()
+        jcenter()
+    }
+
+    tasks.withType(Javadoc).all {
+        enabled = false // TODO:
+        options.setEncoding('UTF-8')
+    }
+}

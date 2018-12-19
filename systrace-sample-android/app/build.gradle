@@ -1,0 +1,30 @@
+apply plugin: 'com.android.application'
+
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "28.0.3"
+
+    defaultConfig {
+        applicationId "com.sample.systrace"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.0.0'
+
+}
+
+apply plugin: 'com.geektime.systrace-plugin'
+systrace {
+    enable = true
+    baseMethodMapFile = "${project.buildDir}/systrace_output/Debug.methodmap"
+    blackListFile = "${project.projectDir}/blacklist/blackMethodList.txt"
+
+}
