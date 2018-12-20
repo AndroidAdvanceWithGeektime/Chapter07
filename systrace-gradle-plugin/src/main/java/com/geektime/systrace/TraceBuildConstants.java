@@ -27,5 +27,5 @@ public class TraceBuildConstants {
     public static final String[] UN_TRACE_CLASS = {"R.class", "R$", "Manifest", "BuildConfig"};
     public final static String DEFAULT_BLACK_TRACE =
                     "[package]\n"
-                    + "-keeppackage com/tencent/matrix/\n";
+                    + "-keepclass com/sample/systrace/TraceTag\n";
 }
